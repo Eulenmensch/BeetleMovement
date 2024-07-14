@@ -2,20 +2,34 @@
 
 namespace Source.Utils
 {
-	public class ArcCast
+	public static class ArcCast
 	{
-		static public bool Cast(Vector3 center, Quaternion rotation, float angle, float radius, int resolution, LayerMask layer, out RaycastHit hit)
+		public static bool Cast(Vector3 center, Quaternion rotation, float angle, float radius, int resolution, LayerMask layer, out RaycastHit hit, bool drawGizmos = false)
 		{
-			rotation *= Quaternion.Euler(-angle / 2, 0, 0);
+			rotation *= Quaternion.Euler(-angle/2, 0, 0);
+
+			float dAngle = angle / resolution;
+			Vector3 forwardRadius = Vector3.forward * radius;
+
+			Vector3 A, B, AB;
+			A = forwardRadius;
+			B = Quaternion.Euler(dAngle, 0, 0) * forwardRadius;
+			AB = B - A;
+			float AB_magnitude = AB.magnitude * 1.001f;
+			
 			for (int i =0; i<resolution; i++)
 			{
-				Vector3 pointStart = center + rotation * Vector3.forward * radius;
-				rotation *= Quaternion.Euler(angle/resolution, 0,0);
-				Vector3 pointEnd = center + rotation * Vector3.forward * radius;
-				Vector3 arcSegment = pointEnd - pointStart;
+				A = center + rotation * forwardRadius;
+				rotation *= Quaternion.Euler(dAngle, 0, 0);
+				B = center + rotation * forwardRadius;
+				AB = B - A;
 
-				if (Physics.Raycast(pointStart, arcSegment, out hit, arcSegment.magnitude * 1.001f, layer))
+				if (Physics.Raycast(A, AB, out hit, AB_magnitude, layer))
+				{
+					if (drawGizmos) {Debug.DrawLine(A, hit.point, Color.cyan);}
 					return true;
+				}
+				if (drawGizmos) {Debug.DrawLine(A, B, Color.blue);}
 			}
 
 			hit = new RaycastHit();
