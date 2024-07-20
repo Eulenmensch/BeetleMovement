@@ -17,6 +17,7 @@ namespace Source.Player
 		[SerializeField] private GameObject raycastOrigin;
 		[SerializeField] private bool drawGizmos;
 		[SerializeField] private GameObject visuals;
+		[SerializeField] private float visualsSlerpTime;
 		
 		private List<RaycastHit> hits;
 		private Rigidbody _rigidbody;
@@ -30,7 +31,8 @@ namespace Source.Player
 		private void FixedUpdate()
 		{
 			CheckGroundNormals();
-			SetRotation();
+			SetPlayerRotation();
+			SetVisualsRotation();
 		}
 
 		private void CheckGroundNormals()
@@ -50,7 +52,7 @@ namespace Source.Player
 			}
 		}
 
-		private void SetRotation()
+		private void SetPlayerRotation()
 		{
 			var normalsSum = Vector3.zero;
 			foreach (var hit in hits)
@@ -61,9 +63,13 @@ namespace Source.Player
 			var averageUpDirection = new Vector3(normalsSum.x / hits.Count, normalsSum.y / hits.Count,
 				normalsSum.z / hits.Count);
 			_rigidbody.MoveRotation(Quaternion.FromToRotation(transform.up, averageUpDirection) * transform.rotation);
+		}
 
-			var lookRotation= Quaternion.LookRotation(_rigidbody.linearVelocity, transform.up);
-			visuals.transform.rotation = lookRotation * Quaternion.Euler(0, 90, 0);
+		private void SetVisualsRotation()
+		{
+			if (_rigidbody.linearVelocity.magnitude <= 0) return;
+			var lookRotation= Quaternion.LookRotation(_rigidbody.linearVelocity, transform.up) * Quaternion.Euler(0, 90, 0);
+			visuals.transform.rotation = Quaternion.Slerp(visuals.transform.rotation, lookRotation, visualsSlerpTime);
 		}
 
 		private void OnDrawGizmos()

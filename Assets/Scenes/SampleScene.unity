@@ -578,6 +578,7 @@ MonoBehaviour:
   raycastOrigin: {fileID: 1501718111}
   drawGizmos: 0
   visuals: {fileID: 567772652}
+  visualsSlerpTime: 0.3
 --- !u!54 &287501975
 Rigidbody:
   m_ObjectHideFlags: 0
