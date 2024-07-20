@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Source.Player
 {
+	[RequireComponent(typeof(Rigidbody))]
 	public class PlayerMovement : MonoBehaviour
 	{
 		[SerializeField] private float moveSpeed;

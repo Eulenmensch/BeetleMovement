@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using Source.Utils;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Source.Player
 {
+	[RequireComponent(typeof(Rigidbody))]
 	public class PlayerRotation : MonoBehaviour
 	{
 		[SerializeField] private int rayDirections;
@@ -14,12 +16,15 @@ namespace Source.Player
 		[SerializeField] private LayerMask layerMask;
 		[SerializeField] private GameObject raycastOrigin;
 		[SerializeField] private bool drawGizmos;
+		[SerializeField] private GameObject visuals;
 		
 		private List<RaycastHit> hits;
+		private Rigidbody _rigidbody;
 		
 		private void Start()
 		{
 			hits = new List<RaycastHit>();
+			_rigidbody = GetComponent<Rigidbody>();
 		}
 
 		private void FixedUpdate()
@@ -55,7 +60,10 @@ namespace Source.Player
 
 			var averageUpDirection = new Vector3(normalsSum.x / hits.Count, normalsSum.y / hits.Count,
 				normalsSum.z / hits.Count);
-			transform.rotation = Quaternion.FromToRotation(transform.up, averageUpDirection) * transform.rotation;
+			_rigidbody.MoveRotation(Quaternion.FromToRotation(transform.up, averageUpDirection) * transform.rotation);
+
+			var lookRotation= Quaternion.LookRotation(_rigidbody.linearVelocity, transform.up);
+			visuals.transform.rotation = lookRotation * Quaternion.Euler(0, 90, 0);
 		}
 
 		private void OnDrawGizmos()
