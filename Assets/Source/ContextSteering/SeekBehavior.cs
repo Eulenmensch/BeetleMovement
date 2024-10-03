@@ -25,7 +25,7 @@ namespace Source.ContextSteering
 				aiData.currentTarget = aiData.targets.OrderBy(target => Vector2.Distance(target.position, transform.position)).FirstOrDefault();
 			}
 
-			if (aiData.currentTarget != null && aiData.targets != null && aiData.targets.Contains(aiData.currentTarget))
+			if (aiData.currentTarget && aiData.targets != null && aiData.targets.Contains(aiData.currentTarget))
 			{
 				lastSeenPosition = aiData.currentTarget.position;
 			}

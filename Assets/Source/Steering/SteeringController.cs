@@ -2,49 +2,54 @@
 
 namespace Source.Steering
 {
-	[RequireComponent(typeof(Rigidbody))]
+	[RequireComponent(typeof(Rigidbody2D))]
 	public class SteeringController : MonoBehaviour
 	{
 		[field: SerializeField] public float MaxAcceleration { get; set; }
 		[field: SerializeField] public float MaxAngularAcceleration { get; set; }
 		[field: SerializeField] public float Drag { get; set; }
 		private SteeringBehavior[] _steerings;
-		public Rigidbody RigidB { get; set; }
+		public Rigidbody2D RigidB { get; set; }
 
 		private void Start()
 		{
-			RigidB = GetComponent<Rigidbody>();
+			RigidB = GetComponent<Rigidbody2D>();
 			_steerings = GetComponents<SteeringBehavior>();
-			RigidB.linearDamping = Drag;
+			RigidB.drag = Drag;
 		}
 
-		private void FixedUpdate()
+		public void Move(Vector2 moveDirection)
 		{
-			Vector3 acceleration = Vector3.zero;
-			float rotation = 0f;
-			foreach (var steering in _steerings)
-			{
-				SteeringData steeringData = steering.GetSteering(this);
-				acceleration += steeringData.Linear * steering.Weight;
-				rotation += steeringData.Angular *steering.Weight;
-			}
+			Vector2 acceleration = Vector2.zero;
 
+			acceleration += moveDirection;
+			
 			if (acceleration.magnitude >= MaxAcceleration)
 			{
 				acceleration.Normalize();
 				acceleration *= MaxAcceleration;
 			}
-			
-			RigidB.AddForce(acceleration);
-			
+			RigidB.AddForce(acceleration, ForceMode2D.Impulse);
+		}
+
+		// public void Rotate(Vector2 faceDirection)
+		// {
+		// 	var lookAt = new Vector3(faceDirection.x, 0, faceDirection.y);
+		// 	transform.LookAt(lookAt);
+		// }
+
+		private void FixedUpdate()
+		{
+			float rotation;
+		
 			// make the agent face the direction it is moving
-			rotation = Mathf.Atan2(RigidB.linearVelocity.y, RigidB.linearVelocity.x) * Mathf.Rad2Deg;
+			rotation = Mathf.Atan2(RigidB.velocity.y, RigidB.velocity.x) * Mathf.Rad2Deg;
 			// smooth the rotation based on the max angular acceleration
-			rotation = Mathf.MoveTowardsAngle(RigidB.rotation.eulerAngles.z, rotation, MaxAngularAcceleration);
+			rotation = Mathf.MoveTowardsAngle(RigidB.rotation, rotation, MaxAngularAcceleration);
 			
 			if (rotation != 0)
 			{
-				RigidB.rotation = Quaternion.Euler(0, 0, rotation);
+				RigidB.rotation = rotation;
 			}
 		}
 	}
