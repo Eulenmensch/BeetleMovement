@@ -6,9 +6,9 @@ namespace Source.ContextSteering
 	public class ContextSolver : MonoBehaviour
 	{
 		[SerializeField] private bool showGizmos;
+		[SerializeField] private float debugRayLength = 1;
 		private float[] interestGizmos;
 		private Vector2 moveDirection;
-		private float debugRayLength = 1;
 
 		private void Start()
 		{
@@ -44,10 +44,28 @@ namespace Source.ContextSteering
 		
 		private void OnDrawGizmos()
 		{
+			if (showGizmos == false)
+				return;
+			
 			if (Application.isPlaying && showGizmos)
 			{
 				Gizmos.color = Color.yellow;
 				Gizmos.DrawRay(transform.position, moveDirection * debugRayLength);
+			}
+
+			if (Application.isPlaying && interestGizmos != null)
+			{
+				if (interestGizmos != null)
+				{
+					Gizmos.color = Color.red;
+					for (int i = 0; i < interestGizmos.Length; i++)
+					{
+						Gizmos.DrawRay(
+							transform.position,
+							Directions.eight[i] * interestGizmos[i]*debugRayLength
+						);
+					}
+				}
 			}
 		}
 	}

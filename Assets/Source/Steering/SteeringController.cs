@@ -8,19 +8,17 @@ namespace Source.Steering
 		[field: SerializeField] public float MaxAcceleration { get; set; }
 		[field: SerializeField] public float MaxAngularAcceleration { get; set; }
 		[field: SerializeField] public float Drag { get; set; }
-		private SteeringBehavior[] _steerings;
 		public Rigidbody2D RigidB { get; set; }
 
 		private void Start()
 		{
 			RigidB = GetComponent<Rigidbody2D>();
-			_steerings = GetComponents<SteeringBehavior>();
-			RigidB.drag = Drag;
+ 			RigidB.drag = Drag;
 		}
 
 		public void Move(Vector2 moveDirection)
 		{
-			Vector2 acceleration = Vector2.zero;
+			var acceleration = Vector2.zero;
 
 			acceleration += moveDirection;
 			
@@ -40,10 +38,9 @@ namespace Source.Steering
 
 		private void FixedUpdate()
 		{
-			float rotation;
-		
-			// make the agent face the direction it is moving
-			rotation = Mathf.Atan2(RigidB.velocity.y, RigidB.velocity.x) * Mathf.Rad2Deg;
+			var rotation =
+				// make the agent face the direction it is moving
+				Mathf.Atan2(RigidB.velocity.y, RigidB.velocity.x) * Mathf.Rad2Deg;
 			// smooth the rotation based on the max angular acceleration
 			rotation = Mathf.MoveTowardsAngle(RigidB.rotation, rotation, MaxAngularAcceleration);
 			

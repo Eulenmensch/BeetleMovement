@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Source.ContextSteering
 {
-	public class EnemyAI : MonoBehaviour
+	public class ContextAI : MonoBehaviour
 	{
 		[SerializeField] private List<SteeringBehavior> steeringBehaviors;
 		[SerializeField] private List<Detector> detectors;
@@ -21,7 +21,7 @@ namespace Source.ContextSteering
 		
 		private void Start()
 		{
-			InvokeRepeating("RunDetectors", 0, detectionRate);
+			InvokeRepeating(nameof(RunDetectors), 0, detectionRate);
 		}
 		
 		private void RunDetectors()

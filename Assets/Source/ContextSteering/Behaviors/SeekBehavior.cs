@@ -9,9 +9,8 @@ namespace Source.ContextSteering
 		[SerializeField] private bool showGizmos;
 
 		private bool reachedLastSeenPos = true;
-
 		private Vector2 lastSeenPosition;
-		private float[] interestsTemp;
+		
 		public override (float[] danger, float[] interest) GetSteering(float[] danger, float[] interest, AIData aiData)
 		{
 			if (reachedLastSeenPos)
@@ -50,33 +49,7 @@ namespace Source.ContextSteering
 				}
 			}
 
-			interestsTemp = interest;
 			return (danger, interest);
-		}
-		
-		private void OnDrawGizmos()
-		{
-
-			if (showGizmos == false)
-				return;
-			Gizmos.DrawSphere(lastSeenPosition, 0.2f);
-
-			if (Application.isPlaying && interestsTemp != null)
-			{
-				if (interestsTemp != null)
-				{
-					Gizmos.color = Color.green;
-					for (int i = 0; i < interestsTemp.Length; i++)
-					{
-						Gizmos.DrawRay(transform.position, Directions.eight[i] * interestsTemp[i]*2);
-					}
-					if (reachedLastSeenPos == false)
-					{
-						Gizmos.color = Color.red;
-						Gizmos.DrawSphere(lastSeenPosition, 0.1f);
-					}
-				}
-			}
 		}
 	}
 }

@@ -7,8 +7,6 @@ namespace Source.ContextSteering
 		[SerializeField] private float radius, agentColliderSize;
 		[SerializeField] private bool showGizmos;
 		
-		float[] contextMap = null;
-
 		public override (float[] danger, float[] interest) GetSteering(float[] danger, float[] interest, AIData aiData)
 		{
 			foreach (var obstacle in aiData.obstacles)
@@ -34,30 +32,7 @@ namespace Source.ContextSteering
 				}
 			}
 
-			contextMap = danger;
 			return (danger, interest);
-		}
-		
-		private void OnDrawGizmos()
-		{
-			if (showGizmos == false)
-				return;
-
-			if (Application.isPlaying && contextMap != null)
-			{
-				if (contextMap != null)
-				{
-					Gizmos.color = Color.red;
-					for (int i = 0; i < contextMap.Length; i++)
-					{
-						Gizmos.DrawRay(
-							transform.position,
-							Directions.eight[i] * contextMap[i]*2
-						);
-					}
-				}
-			}
-
 		}
 	}
 }
