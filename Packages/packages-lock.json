@@ -10,7 +10,7 @@
       "hash": "fe3d2ecfa31b205181ae372274d704c5d7c797c5"
     },
     "com.unity.2d.common": {
-      "version": "9.0.5",
+      "version": "9.0.7",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -29,18 +29,18 @@
       "dependencies": {}
     },
     "com.unity.2d.spriteshape": {
-      "version": "10.0.6",
+      "version": "10.0.7",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.2d.common": "9.0.5",
+        "com.unity.2d.common": "9.0.7",
         "com.unity.mathematics": "1.1.0",
         "com.unity.modules.physics2d": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.ai.navigation": {
-      "version": "2.0.3",
+      "version": "2.0.8",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -69,11 +69,12 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.cinemachine": {
-      "version": "3.1.1",
+      "version": "3.1.4",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.splines": "2.0.0"
+        "com.unity.splines": "2.0.0",
+        "com.unity.modules.imgui": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -111,20 +112,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.31",
+      "version": "3.0.36",
       "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.ext.nunit": "1.0.6"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.ide.visualstudio": {
-      "version": "2.0.22",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.test-framework": "1.1.9"
       },
       "url": "https://packages.unity.com"
     },
@@ -159,11 +151,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.probuilder": {
-      "version": "6.0.3",
+      "version": "6.0.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.shadergraph": "17.0.2",
+        "com.unity.shadergraph": "17.0.3",
         "com.unity.modules.imgui": "1.0.0",
         "com.unity.modules.physics": "1.0.0",
         "com.unity.settings-manager": "1.0.3"
@@ -248,7 +240,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.test-framework": {
-      "version": "1.4.5",
+      "version": "1.4.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -269,7 +261,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.8.7",
+      "version": "1.8.8",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -290,7 +282,7 @@
       }
     },
     "com.unity.visualscripting": {
-      "version": "1.9.4",
+      "version": "1.9.8",
       "depth": 0,
       "source": "registry",
       "dependencies": {
