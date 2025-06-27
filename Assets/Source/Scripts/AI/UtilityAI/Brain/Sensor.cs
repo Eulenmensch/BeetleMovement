@@ -60,12 +60,15 @@ namespace Source.AI.UtilityAI
 
 			foreach (var potentialTarget in detectedObjects)
 			{
-				Vector3 directionToTarget = potentialTarget.position - currentPosition;
-				float distanceSquared = directionToTarget.sqrMagnitude;
-				if (distanceSquared < closestDistanceSquared)
+				if (potentialTarget.CompareTag(tag))
 				{
-					closestDistanceSquared = distanceSquared;
-					closestTarget = potentialTarget;
+					Vector3 directionToTarget = potentialTarget.position - currentPosition;
+					float distanceSquared = directionToTarget.sqrMagnitude;
+					if (distanceSquared < closestDistanceSquared)
+					{
+						closestDistanceSquared = distanceSquared;
+						closestTarget = potentialTarget;
+					}
 				}
 			}
 

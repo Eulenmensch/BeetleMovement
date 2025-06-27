@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6a2bb05fde945c4bb383da65b0b082c, type: 3}
-  m_Name: Action Move to Food
+  m_Script: {fileID: 11500000, guid: f9d8ebde803c4af3bd272ab9481d5cc6, type: 3}
+  m_Name: Action Flee from Enemy
   m_EditorClassIdentifier: 
-  targetTag: Food
-  consideration: {fileID: 11400000, guid: ac9610a0e56e4914a8d01736608a869a, type: 2}
+  targetTag: Enemy
+  consideration: {fileID: 11400000, guid: 4f286b01dcbdca3408e930e6e24c6e2d, type: 2}

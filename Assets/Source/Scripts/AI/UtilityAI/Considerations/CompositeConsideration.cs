@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace Source.AI.UtilityAI {
-    [CreateAssetMenu(menuName = "UtilityAI/Considerations/CompositeConsideration")]
+    [CreateAssetMenu(menuName = "UtilityAI/Considerations/Composite")]
     public class CompositeConsideration : Consideration {
         public enum OperationType { Average, Multiply, Add, Subtract, Divide, Max, Min }
         
