@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f73548e6aa74985a05120a1b1a9a343, type: 3}
-  m_Name: Composite Consideration ShouldEat
+  m_Name: Composite Consideration Food Convenience
   m_EditorClassIdentifier: 
   allMustBeNonZero: 1
   operation: 5

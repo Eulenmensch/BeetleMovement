@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed8c3b25cdea4954b304a5fddf0aff2d, type: 3}
-  m_Name: Consideration InRange Food
+  m_Name: Consideration Detect Peer
   m_EditorClassIdentifier: 
-  maxDistance: 10
+  maxDistance: 2
   maxAngle: 360
-  targetTag: Food
+  targetTag: Beetle
   curve:
     serializedVersion: 2
     m_Curve:

@@ -7,7 +7,7 @@ namespace Source.AI.UtilityAI
 	{
 		public override void Execute(Context context)
 		{
-			context.agent.SetDestination(context.agent.transform.position);
+			
 		}
 	}
 }

@@ -9,7 +9,10 @@ namespace Source.AI.UtilityAI
 
 		public virtual void Initialize(Context context)
 		{
-			//optional init logic
+			if (targetTag != "")
+			{
+				context.sensor.targetTags.Add(targetTag);
+			}
 		}
 		
 		public float CalculateUtility(Context context) => consideration.Evaluate(context);

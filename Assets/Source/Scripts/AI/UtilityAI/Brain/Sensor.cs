@@ -22,6 +22,7 @@ namespace Source.AI.UtilityAI
 			Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius);
 			foreach (var other in colliders)
 			{
+				if (other.gameObject == gameObject) continue;
 				ProcessTrigger(other, item => detectedObjects.Add(item));
 			}
 			
@@ -41,9 +42,9 @@ namespace Source.AI.UtilityAI
 		{
 			if (other.CompareTag("Untagged")) return;
 
-			foreach (var tag in targetTags)
+			foreach (var otherTag in targetTags)
 			{
-				if (other.CompareTag(tag))
+				if (other.CompareTag(otherTag))
 				{
 					action(other.transform);
 				}
