@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f73548e6aa74985a05120a1b1a9a343, type: 3}
-  m_Name: Composite Consideration Food Convenience
+  m_Name: Composite Consideration Food Available
   m_EditorClassIdentifier: 
-  allMustBeNonZero: 1
-  operation: 0
+  allMustBeNonZero: 0
+  operation: 3
   considerations:
-  - {fileID: 11400000, guid: f35871a79838d1e4db46a27de3a10031, type: 2}
-  - {fileID: 11400000, guid: 96f0f183833fd414193cc147c1c671af, type: 2}
+  - {fileID: 11400000, guid: a878be7a411cafd46b1d81b55915667f, type: 2}
+  - {fileID: 11400000, guid: 31e5f9deced8ff7449ee6032cde0684a, type: 2}

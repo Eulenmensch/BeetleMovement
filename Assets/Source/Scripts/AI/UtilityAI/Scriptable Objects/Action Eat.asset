@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Action Eat
   m_EditorClassIdentifier: 
   targetTag: Food
-  consideration: {fileID: 11400000, guid: a878be7a411cafd46b1d81b55915667f, type: 2}
+  consideration: {fileID: 11400000, guid: a127da3e59e29a84da29e8cb1e74ec25, type: 2}
   consumptionPerSecond: 5

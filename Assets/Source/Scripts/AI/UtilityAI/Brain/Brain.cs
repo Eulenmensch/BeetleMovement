@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Source.Beetles.Stats;
+using Source.Things;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -49,6 +50,19 @@ namespace Source.AI.UtilityAI
 		private void UpdateContext()
 		{
 			context.SetData("hunger", hunger.NormalizedHunger);
+			context.SetData("closestFoodAmount", GetClosestFoodSourceAmount());
+		}
+
+		private float GetClosestFoodSourceAmount()
+		{
+			var target = context.sensor.GetClosestTarget("Food");
+			if (!target) return 0f;
+			if (target.TryGetComponent<FoodSource>(out var foodSource))
+			{
+				return foodSource.CurrentAmount / foodSource.Capacity;
+			}
+
+			return 0f;
 		}
 	}
 }
