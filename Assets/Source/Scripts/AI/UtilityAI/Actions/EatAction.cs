@@ -1,4 +1,5 @@
-﻿using Source.Things;
+﻿using Source.Beetles.Stats;
+using Source.Things;
 using UnityEngine;
 
 namespace Source.AI.UtilityAI
@@ -7,19 +8,16 @@ namespace Source.AI.UtilityAI
 	public class EatAction : AIAction
 	{
 		public float consumptionPerSecond = 1;
-		public override void Execute(Context context)
+		public override void Execute(Brain brain, IBlackboard blackboard)
 		{
-			var target = context.sensor.GetClosestTarget(targetTag);
-			if (!target) return;
+			var foodSource = blackboard.Get<FoodSource>(AphidKeys.NearestFood);
+			if (!foodSource) return;
 
 			var consumption = consumptionPerSecond * Time.deltaTime;
-			
-			if (target.TryGetComponent<FoodSource>(out var foodSource))
-			{
-				foodSource.Drain(consumption);
-			}
-			
-			context.brain.hunger.ReduceHunger(consumption);
+
+			foodSource.Drain(consumption);
+
+			blackboard.Get<Hunger>(InsectKeys.Hunger).ReduceHunger(consumption);
 		}
 	}
 }

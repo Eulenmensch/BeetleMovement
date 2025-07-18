@@ -5,15 +5,17 @@ using UnityEngine;
 namespace Source.AI.UtilityAI
 {
 	[RequireComponent(typeof(SphereCollider))]
-	public class Sensor : MonoBehaviour
+	public abstract class Sensor : MonoBehaviour
 	{
 		public float detectionRadius = 10f;
 		public List<string> targetTags = new();
 
-		private readonly List<Transform> detectedObjects = new(10);
+		public Brain Brain { protected get; set; }
+		
+		protected readonly List<Transform> detectedObjects = new(10);
 		private SphereCollider sphereCollider;
 
-		private void Start()
+		protected virtual void Start()
 		{
 			sphereCollider = GetComponent<SphereCollider>();
 			sphereCollider.isTrigger = true;
@@ -28,17 +30,17 @@ namespace Source.AI.UtilityAI
 			
 		}
 
-		private void OnTriggerEnter(Collider other)
+		protected virtual void OnTriggerEnter(Collider other)
 		{
 			ProcessTrigger(other, item => detectedObjects.Add(item));
 		}
 
-		private void OnTriggerExit(Collider other)
+		protected virtual void OnTriggerExit(Collider other)
 		{
 			ProcessTrigger(other, item => detectedObjects.Remove(item));
 		}
 
-		void ProcessTrigger(Collider other, Action<Transform> action)
+		private void ProcessTrigger(Collider other, Action<Transform> action)
 		{
 			if (other.CompareTag("Untagged")) return;
 
@@ -51,7 +53,7 @@ namespace Source.AI.UtilityAI
 			}
 		}
 
-		public Transform GetClosestTarget(string tag)
+		public Transform GetClosestTarget(string targetTag)
 		{
 			if (detectedObjects.Count == 0) return null;
 
@@ -61,7 +63,7 @@ namespace Source.AI.UtilityAI
 
 			foreach (var potentialTarget in detectedObjects)
 			{
-				if (potentialTarget.CompareTag(tag))
+				if (potentialTarget.CompareTag(targetTag))
 				{
 					Vector3 directionToTarget = potentialTarget.position - currentPosition;
 					float distanceSquared = directionToTarget.sqrMagnitude;

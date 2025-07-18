@@ -1,39 +1,40 @@
 ﻿using System.Collections.Generic;
-using Source.Beetles.Stats;
-using Source.Things;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Source.AI.UtilityAI
 {
 	[RequireComponent(typeof(NavMeshAgent), typeof(Sensor))]
-	public class Brain : MonoBehaviour
+	public abstract class Brain : MonoBehaviour
 	{
 		public List<AIAction> actions;
-		public Context context;
-
-		public Hunger hunger;
+		public NavMeshAgent agent;
+		public Sensor sensor;
+		public IBlackboard agentBlackboard;
 
 		private void Awake()
 		{
-			context = new Context(this);
-
+			agentBlackboard = InitializeAgentBb();
 			foreach (var action in actions)
 			{
-				action.Initialize(context);
+				action.Initialize(agentBlackboard);
 			}
+			agent = GetComponent<NavMeshAgent>();
+			sensor = GetComponent<Sensor>();
+			sensor.Brain = this;
 		}
+
+		protected abstract IBlackboard InitializeAgentBb();
+	
 
 		private void Update()
 		{
-			UpdateContext();
-
 			AIAction bestAction = null;
 			float highestUtility = float.MinValue;
 
 			foreach (var action in actions)
 			{
-				float utility = action.CalculateUtility(context);
+				float utility = action.CalculateUtility(this, agentBlackboard);
 				if (utility > highestUtility)
 				{
 					highestUtility = utility;
@@ -43,26 +44,8 @@ namespace Source.AI.UtilityAI
 
 			if (bestAction)
 			{
-				bestAction.Execute(context);
+				bestAction.Execute(this, agentBlackboard);
 			}
-		}
-
-		private void UpdateContext()
-		{
-			context.SetData("hunger", hunger.NormalizedHunger);
-			context.SetData("closestFoodAmount", GetClosestFoodSourceAmount());
-		}
-
-		private float GetClosestFoodSourceAmount()
-		{
-			var target = context.sensor.GetClosestTarget("Food");
-			if (!target) return 0f;
-			if (target.TryGetComponent<FoodSource>(out var foodSource))
-			{
-				return foodSource.CurrentAmount / foodSource.Capacity;
-			}
-
-			return 0f;
 		}
 	}
 }

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using Source.AI.UtilityAI;
 using UnityEngine;
 
 namespace Source.Things
 {
-	public class FoodSource : MonoBehaviour
+	public class FoodSource : MonoBehaviour, IPerceivable
 	{
 		[field:SerializeField] public float Capacity { set; get; }
 		[SerializeField] private float refillRatePerSecond;
@@ -16,6 +18,12 @@ namespace Source.Things
 		{
 			defaultScale = transform.localScale;
 			CurrentAmount = Capacity;
+		}
+
+		public string PerceptType => "food";
+		public Percept GetPercept()
+		{
+			return new Percept(PerceptType, transform.position, new Dictionary<string, object> { { "fullness", CurrentAmount } });
 		}
 
 		public void Drain(float amount)

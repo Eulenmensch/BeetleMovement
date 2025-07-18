@@ -4,6 +4,6 @@ namespace Source.AI.UtilityAI
 {
 	public abstract class Consideration : ScriptableObject
 	{
-		public abstract float Evaluate(Context context);
+		public abstract float Evaluate(Brain brain, IBlackboard blackboard);
 	}
 }

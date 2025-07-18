@@ -7,6 +7,6 @@ namespace Source.AI.UtilityAI
 	{
 		public float value;
 		
-		public override float Evaluate(Context context) => value;
+		public override float Evaluate(Brain brain, IBlackboard blackboard) => value;
 	}
 }

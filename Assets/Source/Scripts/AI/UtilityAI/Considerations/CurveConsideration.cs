@@ -1,17 +1,18 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace Source.AI.UtilityAI
 {
 	[CreateAssetMenu(menuName = "UtilityAI/Considerations/Curve")]
 	public class CurveConsideration : Consideration
 	{
+		[InfoBox("X axis = input value, y axis = utility")]
 		public AnimationCurve curve;
-		public string contextKey;
+		public string blackboardKey;
 		
-		public override float Evaluate(Context context)
+		public override float Evaluate(Brain brain, IBlackboard blackboard)
 		{
-			float inputValue = context.GetData<float>(contextKey);
-
+			float inputValue = blackboard.Get<float>(blackboardKey);
 			float utility = curve.Evaluate(inputValue);
 			return Mathf.Clamp01(utility);
 		}

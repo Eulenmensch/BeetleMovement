@@ -12,6 +12,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9d8ebde803c4af3bd272ab9481d5cc6, type: 3}
   m_Name: Action Flee from Enemy
   m_EditorClassIdentifier: 
-  targetTag: Enemy
-  consideration: {fileID: 11400000, guid: 4f286b01dcbdca3408e930e6e24c6e2d, type: 2}
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 3a8df4d3661a0ad44acd8116d28dfd1a, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: considerations
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[Source.AI.UtilityAI.Consideration,
+        Assembly-CSharp],[System.Single, mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[Source.AI.UtilityAI.Consideration,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 0
+    - Name: $v
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   moveDistanceMin: 3
+  moveDistanceMax: 10

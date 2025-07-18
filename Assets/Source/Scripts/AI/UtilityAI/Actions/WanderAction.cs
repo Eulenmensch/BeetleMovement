@@ -11,16 +11,16 @@ namespace Source.AI.UtilityAI
 		public float wanderRadius = 10f;
 		public float wanderAngleMax = 90f;
 		private Vector3 targetPosition;
-		public override void Execute(Context context)
+		public override void Execute(Brain brain, IBlackboard blackboard)
 		{
-			var agentPosition = context.agent.transform.position;
-			if (Vector3.Distance(agentPosition, context.agent.destination) <= repathDistance)
+			var agentPosition = brain.agent.transform.position;
+			if (Vector3.Distance(agentPosition, brain.agent.destination) <= repathDistance)
 			{
-				context.agent.SetDestination(GetRandomDestination(agentPosition, context));
+				brain.agent.SetDestination(GetRandomDestination(agentPosition, brain));
 			}
 		}
 
-		private Vector3 GetRandomDestination(Vector3 agentPosition, Context context)
+		private Vector3 GetRandomDestination(Vector3 agentPosition, Brain brain)
 		{
 			var randomPoint = Random.insideUnitSphere * wanderRadius;
 			randomPoint += agentPosition;
@@ -29,7 +29,7 @@ namespace Source.AI.UtilityAI
 			var sampledPosition = hit.position;
 				
 			var direction = agentPosition - sampledPosition;
-			var angleToAgentForward = Vector3.SignedAngle(context.agent.transform.forward, direction, context.agent.transform.up);
+			var angleToAgentForward = Vector3.SignedAngle(brain.agent.transform.forward, direction, brain.agent.transform.up);
 
 			var roll = Random.value;
 			if (roll > backtrackChance)
@@ -39,7 +39,7 @@ namespace Source.AI.UtilityAI
 			
 			if (angleToAgentForward > wanderAngleMax)
 			{
-				GetRandomDestination(agentPosition, context);
+				GetRandomDestination(agentPosition, brain);
 			}
 			
 			return sampledPosition;

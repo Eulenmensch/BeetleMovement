@@ -5,12 +5,13 @@ namespace Source.AI.UtilityAI
 	[CreateAssetMenu(menuName = "UtilityAI/Actions/MoveToTarget")]
 	public class MoveToTargetAction : AIAction
 	{
-		public override void Execute(Context context)
+		public string targetTag;
+		public override void Execute(Brain brain, IBlackboard blackboard)
 		{
-			var target = context.sensor.GetClosestTarget(targetTag);
+			var target = brain.sensor.GetClosestTarget(targetTag);
 			if (!target) return;
 
-			context.agent.SetDestination(target.position);
+			brain.agent.SetDestination(target.position);
 		}
 	}
 }

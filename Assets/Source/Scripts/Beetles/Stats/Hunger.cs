@@ -1,16 +1,19 @@
 ﻿using System;
+using Source.AI.UtilityAI;
 using UnityEngine;
 
 namespace Source.Beetles.Stats {
+	[RequireComponent(typeof(IBlackboard))]
 	public class Hunger : MonoBehaviour {
 		public float maxHunger = 100;
 		public float minHunger = 0;
 		public float current;
 		public float timeToZeroInSeconds = 60;
-		public float NormalizedHunger => current / maxHunger;
-
+		private float NormalizedHunger => current / maxHunger;
+		private IBlackboard agentBlackboard;
 		void Start() {
 			current = minHunger;
+			agentBlackboard = GetComponent<IBlackboard>();
 		}
 
 		private void Update()
@@ -25,13 +28,15 @@ namespace Source.Beetles.Stats {
 			{
 				current = 0;
 			}
+			agentBlackboard.Set(InsectKeys.HungerAmount, NormalizedHunger);
 		}
 
-		public void AddHunger(float hunger) {
+		private void AddHunger(float hunger) {
 			current += hunger;
 			if (current >= maxHunger) {
 				Die();
 			}
+			agentBlackboard.Set(InsectKeys.HungerAmount, NormalizedHunger);
 		}
 
 		void Die() {

@@ -10,19 +10,20 @@ namespace Source.AI.UtilityAI
 		public float maxDistance = 10f;
 		public float maxAngle = 360f;
 		public string targetTag = "Target";
+		[Tooltip("X axis = input value, y axis = utility")]
 		public AnimationCurve curve;
 		
-		public override float Evaluate(Context context)
+		public override float Evaluate(Brain brain, IBlackboard blackboard)
 		{
-			if (!context.sensor.targetTags.Contains(targetTag))
+			if (!brain.sensor.targetTags.Contains(targetTag))
 			{
-				context.sensor.targetTags.Add(targetTag);
+				brain.sensor.targetTags.Add(targetTag);
 			}
 
-			var targetTransform = context.sensor.GetClosestTarget(targetTag);
+			var targetTransform = brain.sensor.GetClosestTarget(targetTag);
 			if (!targetTransform) return 0f;
 
-			var agentTransform = context.agent.transform;
+			var agentTransform = brain.agent.transform;
 
 			var isInRange = agentTransform.InRangeOf(targetTransform, maxDistance, maxAngle);
 			if (!isInRange) return 0f;

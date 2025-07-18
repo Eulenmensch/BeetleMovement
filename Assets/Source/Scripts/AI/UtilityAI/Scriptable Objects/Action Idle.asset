@@ -12,5 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2023a393a5524835802a03080fa141c6, type: 3}
   m_Name: Action Idle
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: considerations
+      Entry: 6
+      Data: 
   targetTag: 
   consideration: {fileID: 11400000, guid: 27df86570462a7e408cbf2a40a0d1695, type: 2}

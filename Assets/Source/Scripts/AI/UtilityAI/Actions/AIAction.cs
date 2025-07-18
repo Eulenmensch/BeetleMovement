@@ -1,22 +1,32 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace Source.AI.UtilityAI
 {
-	public abstract class AIAction : ScriptableObject
+	public abstract class AIAction : SerializedScriptableObject
 	{
-		public string targetTag;
-		public Consideration consideration;
+		[InfoBox("Weights are clamped between 0 and 1")]
+		[DictionaryDrawerSettings(KeyLabel = "Consideration", ValueLabel = "Weight")]
+		public Dictionary<Consideration, float> considerations;
+		public virtual void Initialize(IBlackboard blackboard){}
 
-		public virtual void Initialize(Context context)
+		public float CalculateUtility(Brain brain, IBlackboard blackboard)
 		{
-			if (targetTag != "")
+			float utility = 1f;
+			foreach (var consideration in considerations.Keys)
 			{
-				context.sensor.targetTags.Add(targetTag);
+				if (considerations.TryGetValue(consideration, out float weight))
+				{
+					weight = Mathf.Clamp01(weight);
+					var weightedUtility = consideration.Evaluate(brain, blackboard) * weight;
+					utility *= weightedUtility;
+				}
 			}
-		}
-		
-		public float CalculateUtility(Context context) => consideration.Evaluate(context);
 
-		public abstract void Execute(Context context);
+			return utility;
+		}
+
+		public abstract void Execute(Brain brain, IBlackboard blackboard);
 	}
 }

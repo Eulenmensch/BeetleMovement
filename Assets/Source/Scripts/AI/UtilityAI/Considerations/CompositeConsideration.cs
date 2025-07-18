@@ -11,15 +11,15 @@ namespace Source.AI.UtilityAI {
         public OperationType operation = OperationType.Max;
         public List<Consideration> considerations;
 
-        public override float Evaluate(Context context) {
+        public override float Evaluate(Brain brain, IBlackboard blackboard) {
             if (considerations == null || considerations.Count == 0) return 0f;
             
-            float result = considerations[0].Evaluate(context);
+            float result = considerations[0].Evaluate(brain, blackboard);
             if (result == 0f && allMustBeNonZero) return 0f;
 
             // Suggestion: Only 2 Considerations per Composite
             for (int i = 1; i < considerations.Count; i++) {
-                float value = considerations[i].Evaluate(context);
+                float value = considerations[i].Evaluate(brain, blackboard);
                 
                 if (value == 0f && allMustBeNonZero) return 0f;
 
