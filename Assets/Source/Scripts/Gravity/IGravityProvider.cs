@@ -4,6 +4,6 @@ namespace Source.Gravity
 {
 	public interface IGravityProvider
 	{
-		public Vector3 GetGravity();
+		public Vector3 GetGravityDirection(Vector3 objectPosition);
 	}
 }
