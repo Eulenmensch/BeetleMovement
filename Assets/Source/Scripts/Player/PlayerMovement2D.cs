@@ -30,15 +30,15 @@ namespace Source.Player
 			}
 			else
 			{
-				rb.AddForce(-rb.velocity, ForceMode2D.Impulse);
+				rb.AddForce(-rb.linearVelocity, ForceMode2D.Impulse);
 			}
-			if (rb.velocity.magnitude > maxSpeed)
+			if (rb.linearVelocity.magnitude > maxSpeed)
 			{
-				rb.velocity = rb.velocity.normalized * maxSpeed;
+				rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
 			}
 			
 			if(!_moving) return;
-			rb.SetRotation( Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg);
+			rb.SetRotation( Mathf.Atan2(rb.linearVelocity.y, rb.linearVelocity.x) * Mathf.Rad2Deg);
 		}
 
 		public void Move(InputAction.CallbackContext context)

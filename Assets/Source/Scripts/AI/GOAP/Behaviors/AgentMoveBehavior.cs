@@ -44,7 +44,7 @@ namespace Source.AI.GOAP
 				lastTarget = currentTarget.Position;
 				var moveDirection = (currentTarget.Position - transform.position).normalized;
 				moveDirection *= speed;
-				rigidBody2D.velocity = moveDirection;
+				rigidBody2D.linearVelocity = moveDirection;
 			}
 		}
 

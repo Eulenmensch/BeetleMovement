@@ -20,7 +20,7 @@ namespace Source.AI.GOAP
 		Vector3 GetRandomPosition(IMonoAgent agent)
 		{
 			var random = Random.insideUnitCircle * 1f;
-			var offset = agent.gameObject.GetComponent<Rigidbody2D>().velocity.normalized * 2;
+			var offset = agent.gameObject.GetComponent<Rigidbody2D>().linearVelocity.normalized * 2;
 			var position = agent.transform.position + (Vector3)offset + (Vector3)random;
 			Debug.Log(offset);
 			return position;

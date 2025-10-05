@@ -15,7 +15,7 @@ namespace Source.AI.Steering
 			float distance = direction.magnitude;
 			if (distance < targetRadius)
 			{
-				steeringController.RigidB.velocity = Vector3.zero;
+				steeringController.RigidB.linearVelocity = Vector3.zero;
 				return steeringData;
 			}
 
@@ -33,7 +33,7 @@ namespace Source.AI.Steering
 			Vector3 targetVelocity = direction;
 			targetVelocity.Normalize();
 			targetVelocity *= targetSpeed;
-			steeringData.Linear = targetVelocity - (Vector3)steeringController.RigidB.velocity;
+			steeringData.Linear = targetVelocity - (Vector3)steeringController.RigidB.linearVelocity;
 			if (steeringData.Linear.magnitude > steeringController.MaxAcceleration)
 			{
 				steeringData.Linear.Normalize();

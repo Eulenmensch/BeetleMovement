@@ -13,7 +13,7 @@ namespace Source.AI.Steering
 		private void Start()
 		{
 			RigidB = GetComponent<Rigidbody2D>();
- 			RigidB.drag = Drag;
+ 			RigidB.linearDamping = Drag;
 		}
 
 		public void Move(Vector2 moveDirection)
@@ -40,7 +40,7 @@ namespace Source.AI.Steering
 		{
 			var rotation =
 				// make the agent face the direction it is moving
-				Mathf.Atan2(RigidB.velocity.y, RigidB.velocity.x) * Mathf.Rad2Deg;
+				Mathf.Atan2(RigidB.linearVelocity.y, RigidB.linearVelocity.x) * Mathf.Rad2Deg;
 			// smooth the rotation based on the max angular acceleration
 			rotation = Mathf.MoveTowardsAngle(RigidB.rotation, rotation, MaxAngularAcceleration);
 			

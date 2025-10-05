@@ -12,7 +12,7 @@ namespace Source.AI.Steering
 			SteeringData steeringData = new SteeringData();
 			Vector3 direction = target.transform.position - transform.position;
 			float distance = direction.magnitude;
-			float speed = steeringController.RigidB.velocity.magnitude;
+			float speed = steeringController.RigidB.linearVelocity.magnitude;
 			
 			float prediction;
 			if (speed <= distance / maxPrediction)
