@@ -1,3 +1,4 @@
+using ECM.Components;
 using Sirenix.OdinInspector;
 using Source.Gravity;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace Source.Player
 {
-	[RequireComponent(typeof(Rigidbody))]
+	[RequireComponent(typeof(Rigidbody), typeof(GroundDetection))]
 	public class CustomGravityMovement : SerializedMonoBehaviour
 	{
 		[SerializeField] private Camera playerCam;
@@ -22,6 +23,7 @@ namespace Source.Player
 		private bool isSprinting;
 		
 		private Rigidbody rb;
+		private GroundDetection groundDetection;
 		
 		private void Awake()
 		{
@@ -37,6 +39,10 @@ namespace Source.Player
 		private void FixedUpdate()
 		{
 			UpdateGravity();
+			if (!groundDetection.isValidGround)
+			{
+				ApplyGravity();
+			}
 			Rotate();
 			Move();
 		}
@@ -95,6 +101,11 @@ namespace Source.Player
 		private void UpdateGravity()
 		{
 			gravityDirection = GravityProvider.GetGravityDirection(transform.position);
+		}
+
+		private void ApplyGravity()
+		{
+			rb.MovePosition(transform.position + gravityDirection * gravityAcceleration * Time.fixedDeltaTime);
 		}
 
 		private void Rotate()
