@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3879889464807524339}
   - component: {fileID: 7388977453681041260}
+  - component: {fileID: 8254774945056594162}
+  - component: {fileID: 3741679878515739264}
   m_Layer: 0
   m_Name: Food Source
   m_TagString: Untagged
@@ -47,6 +49,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Source.Things.FoodSource
   <Capacity>k__BackingField: 10
   refillRatePerSecond: 0.5
+--- !u!136 &8254774945056594162
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3239754806241882074}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.06
+  m_Height: 4.05
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3741679878515739264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3239754806241882074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bee0a6fa1f5d4f4db481219040523c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AstarPathfindingProject::Pathfinding.NavmeshCut
+  version: 1073741824
+  graphMask:
+    value: -1
+  type: 5
+  mesh: {fileID: 0}
+  rectangleSize: {x: 1, y: 1}
+  circleRadius: 0.7
+  circleResolution: 6
+  height: 1
+  meshScale: 1
+  center: {x: 0, y: 0, z: 0}
+  updateDistance: 0.4
+  isDual: 0
+  radiusExpansionMode: 1
+  cutsAddedGeom: 1
+  updateRotationDistance: 10
+  useRotationAndScale: 0
 --- !u!1 &3440379380815308852
 GameObject:
   m_ObjectHideFlags: 0

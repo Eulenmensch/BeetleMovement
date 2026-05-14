@@ -34957,7 +34957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3082918975267323360, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 21.01
+      value: 20.622
       objectReference: {fileID: 0}
     - target: {fileID: 3082918975267323360, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: m_LocalPosition.y
@@ -34965,7 +34965,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3082918975267323360, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 45.03
+      value: 44.228
       objectReference: {fileID: 0}
     - target: {fileID: 3082918975267323360, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: m_LocalRotation.w
@@ -35523,39 +35523,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3239754806241882074, guid: 1044eff085d9c57428946866570b601c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1223515100}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1044eff085d9c57428946866570b601c, type: 3}
---- !u!1 &1223515099 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3239754806241882074, guid: 1044eff085d9c57428946866570b601c, type: 3}
-  m_PrefabInstance: {fileID: 1223515098}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &1223515100
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1223515099}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.06
-  m_Height: 4.05
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1312670176
 GameObject:
   m_ObjectHideFlags: 0
