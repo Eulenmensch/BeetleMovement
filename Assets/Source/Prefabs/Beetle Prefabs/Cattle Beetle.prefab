@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7878897338804021941}
   - component: {fileID: 2415614663331102113}
   - component: {fileID: 3758723272603554900}
+  - component: {fileID: 5798927599146470073}
   m_Layer: 9
   m_Name: Cattle Beetle
   m_TagString: Cattle
@@ -165,7 +166,7 @@ MonoBehaviour:
   stuckCheckInterval: 2
   stuckThreshold: 0.1
   _updateInterval: 0.2
-  _showDebug: 1
+  _showDebug: 0
   _debugHeight: 1.5
   _boxWidth: 185
 --- !u!114 &3758723272603554900
@@ -180,8 +181,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f954a762ab885334998081e1a75dced8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Source.Beetles.PheromoneEmitter
-  pheromonePrefab: {fileID: 0}
-  emitInterval: 1.5
+  pheromonePrefab: {fileID: 7848389301486536769, guid: ace70463dc629664aba6230012bd38bc, type: 3}
+  emitInterval: 10
+--- !u!135 &5798927599146470073
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3033517756831521144}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5801831738306459452
 GameObject:
   m_ObjectHideFlags: 0

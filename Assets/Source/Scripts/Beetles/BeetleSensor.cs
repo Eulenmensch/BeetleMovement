@@ -9,9 +9,9 @@ namespace Source.Beetles
     {
         [SerializeField] private float      senseRadius   = 8f;
         [SerializeField] private float      eatRadius     = 0.8f;  // distance to count as "at food source"
-        [SerializeField] private LayerMask  foodLayer;
-        [SerializeField] private LayerMask  beetleLayer;
-        [SerializeField] private LayerMask  pheromoneLayer;
+        [SerializeField] private LayerMask  foodLayer      = ~0;
+        [SerializeField] private LayerMask  beetleLayer    = ~0;
+        [SerializeField] private LayerMask  pheromoneLayer = ~0;
         [SerializeField] private string     predatorTag   = "Predator";
         [SerializeField] private string     preyTag       = "CattleBeetle";
 
@@ -97,6 +97,7 @@ namespace Source.Beetles
             for (int i = 0; i < count; i++)
             {
                 if (!_buffer[i].TryGetComponent(out Pheromone p)) continue;
+                if (p.Emitter == gameObject) continue; // ignore own pheromones
                 totalStrength += p.Strength;
                 weightedDir   += (_buffer[i].transform.position - transform.position).normalized * p.Strength;
             }

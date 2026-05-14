@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 6131547985544650886}
   - component: {fileID: 6449318226079514045}
   - component: {fileID: 6667312801301734444}
+  - component: {fileID: 6370470442133010504}
   m_Layer: 9
   m_Name: Predator Beetle
   m_TagString: Predator
@@ -153,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ac4d25a2b3033746b41ea47ffcdb544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Source.Beetles.BeetleSensor
-  senseRadius: 8
+  senseRadius: 15
   eatRadius: 1
   foodLayer:
     serializedVersion: 2
@@ -255,7 +256,7 @@ MonoBehaviour:
   stuckCheckInterval: 2
   stuckThreshold: 0.1
   _updateInterval: 0.2
-  _showDebug: 1
+  _showDebug: 0
   _debugHeight: 1.5
   _boxWidth: 185
 --- !u!114 &6667312801301734444
@@ -271,4 +272,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Source.Beetles.PheromoneEmitter
   pheromonePrefab: {fileID: 0}
-  emitInterval: 1.5
+  emitInterval: 15
+--- !u!135 &6370470442133010504
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6080246000725229747}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.3
+  m_Center: {x: 0, y: 0, z: 0}

@@ -10,7 +10,11 @@ namespace Source.Beetles
         
         [SerializeField, InfoBox("In Seconds")] private float lifetime = 8f;
 
-        public float Strength { get; private set; } = 1f;
+        public float      Strength { get; private set; } = 1f;
+        public GameObject Emitter  { get; private set; }
+
+        // Called by PheromoneEmitter immediately after instantiation.
+        public void Init(GameObject emitter) => Emitter = emitter;
 
         private float _elapsed;
 

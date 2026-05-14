@@ -16,8 +16,10 @@ namespace Source.Beetles
             if (Time.time < _nextEmitTime) return;
             _nextEmitTime = Time.time + emitInterval;
 
-            if (pheromonePrefab != null)
-                Instantiate(pheromonePrefab, transform.position, Quaternion.identity);
+            if (pheromonePrefab == null) return;
+            var go = Instantiate(pheromonePrefab, transform.position, Quaternion.identity);
+            if (go.TryGetComponent(out Pheromone p))
+                p.Init(gameObject);
         }
     }
 }
