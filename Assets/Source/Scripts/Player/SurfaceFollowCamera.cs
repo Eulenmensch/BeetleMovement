@@ -18,18 +18,21 @@ namespace Source.Player
         [SerializeField] private float                pitchMin     = -15f;
         [SerializeField] private float                pitchMax     = 75f;
         [SerializeField] private float                positionLerp = 10f;
+        [SerializeField] private float                upTrackSpeed = 5f;
         [SerializeField] private InputActionReference lookAction;
 
-        private float _yaw;
-        private float _pitch = 20f;
+        private float   _yaw;
+        private float   _pitch = 20f;
+        private Vector3 _smoothUp;
 
         private void Start()
         {
             if (target == null) return;
+            _smoothUp = target.up;
             // Set initial yaw so the camera opens behind the character rather than at a fixed
             // world angle. After this, _yaw accumulates look input only — never reads target.forward.
-            Vector3 charFwd = Vector3.ProjectOnPlane(target.forward, target.up).normalized;
-            _yaw = Vector3.SignedAngle(WorldRef(target.up), charFwd, target.up);
+            Vector3 charFwd = Vector3.ProjectOnPlane(target.forward, _smoothUp).normalized;
+            _yaw = Vector3.SignedAngle(WorldRef(_smoothUp), charFwd, _smoothUp);
         }
 
         private void OnEnable()  => lookAction.action.Enable();
@@ -39,17 +42,20 @@ namespace Source.Player
         {
             if (target == null) return;
 
+            // Smoothly track the player's up vector so face transitions don't snap the camera.
+            _smoothUp = Vector3.Slerp(_smoothUp, target.up, upTrackSpeed * Time.deltaTime).normalized;
+
             Vector2 look = lookAction.action.ReadValue<Vector2>();
             _yaw   += look.x * sensitivity;
             _pitch -= look.y * sensitivity;
             _pitch  = Mathf.Clamp(_pitch, pitchMin, pitchMax);
 
-            Quaternion referenceFrame = Quaternion.LookRotation(WorldRef(target.up), target.up);
+            Quaternion referenceFrame = Quaternion.LookRotation(WorldRef(_smoothUp), _smoothUp);
             Quaternion orbitRotation  = referenceFrame * Quaternion.Euler(_pitch, _yaw, 0f);
 
             Vector3 desiredPos = target.position + orbitRotation * new Vector3(0f, 0f, -distance);
             transform.position = Vector3.Lerp(transform.position, desiredPos, positionLerp * Time.deltaTime);
-            transform.LookAt(target.position, target.up);
+            transform.LookAt(target.position, _smoothUp);
         }
 
         // A stable world-space direction on the surface tangent plane that does not depend
