@@ -1,31 +1,38 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Source.Player
 {
     // Third-person orbit camera. Yaw and pitch are applied relative to the target's up vector
     // so the player always appears visually upright regardless of which surface face they occupy.
+    // Reads the Look action from the new Input System (pointer delta or gamepad right stick).
     public class SurfaceFollowCamera : MonoBehaviour
     {
-        [SerializeField] private Transform target;
-        [SerializeField] private float distance         = 6f;
-        [SerializeField] private float sensitivity      = 3f;
-        [SerializeField] private float pitchMin         = -15f;
-        [SerializeField] private float pitchMax         = 75f;
-        [SerializeField] private float positionLerp     = 10f;
+        [SerializeField] private Transform            target;
+        [SerializeField] private float                distance     = 6f;
+        [SerializeField] private float                sensitivity  = 0.15f;
+        [SerializeField] private float                pitchMin     = -15f;
+        [SerializeField] private float                pitchMax     = 75f;
+        [SerializeField] private float                positionLerp = 10f;
+        [SerializeField] private InputActionReference lookAction;
 
         private float _yaw;
         private float _pitch = 20f;
+
+        private void OnEnable()  => lookAction.action.Enable();
+        private void OnDisable() => lookAction.action.Disable();
 
         private void LateUpdate()
         {
             if (target == null) return;
 
-            _yaw   += Input.GetAxis("Mouse X") * sensitivity;
-            _pitch -= Input.GetAxis("Mouse Y") * sensitivity;
+            Vector2 look = lookAction.action.ReadValue<Vector2>();
+            _yaw   += look.x * sensitivity;
+            _pitch -= look.y * sensitivity;
             _pitch  = Mathf.Clamp(_pitch, pitchMin, pitchMax);
 
             // Build a reference frame aligned to the target's surface up, then apply yaw/pitch within it.
-            // ProjectOnPlane handles the case where target.forward drifts out of the surface tangent plane.
+            // ProjectOnPlane guards against target.forward drifting out of the surface tangent plane.
             Vector3 fwdOnSurface = Vector3.ProjectOnPlane(target.forward, target.up);
             if (fwdOnSurface.sqrMagnitude < 0.001f) fwdOnSurface = target.forward;
 
