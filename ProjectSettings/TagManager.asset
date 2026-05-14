@@ -7,6 +7,8 @@ TagManager:
   - Food
   - Enemy
   - Beetle
+  - Cattle
+  - Predator
   layers:
   - Default
   - TransparentFX
@@ -16,9 +18,9 @@ TagManager:
   - UI
   - Ground
   - Obstacle
-  - 
-  - 
-  - 
+  - Food
+  - Beetle
+  - Pheromone
   - 
   - 
   - 
@@ -53,3 +55,4 @@ TagManager:
   - Light Layer 5
   - Light Layer 6
   - Light Layer 7
+  m_MigratedRenderPipelines: []
