@@ -35,6 +35,11 @@ namespace Source.Beetles
         [Header("AI")]
         [SerializeField, Range(0.1f, 0.5f)] private float _updateInterval = 0.2f;
 
+        [Header("Debug")]
+        [SerializeField] private bool  _showDebug   = false;
+        [SerializeField] private float _debugHeight = 1.5f;  // world units above the beetle
+        [SerializeField] private float _boxWidth    = 185f;
+
         // Exposed so actions can reference the current surface normal and update interval.
         public Vector3 SurfaceNormal   { get; private set; } = Vector3.up;
         public float   UpdateInterval  => _updateInterval;
@@ -55,6 +60,19 @@ namespace Source.Beetles
         private float   _nextAIUpdate;
 
         private readonly Collider[] _sepBuffer = new Collider[16];
+
+        // --- Debug overlay state ---
+
+        private struct DebugEntry { public string Name; public float Score; public bool Valid; }
+        private readonly List<DebugEntry> _debugEntries    = new();
+        private string                    _currentActionName = string.Empty;
+
+        private static GUIStyle _headerStyle;
+        private static GUIStyle _activeStyle;
+        private static GUIStyle _normalStyle;
+        private static GUIStyle _invalidStyle;
+
+        // ---
 
         protected abstract bool              IsPredator    { get; }
         protected abstract List<BeetleAction> CreateActions();
@@ -120,13 +138,20 @@ namespace Source.Beetles
             BeetleAction best     = null;
             float        topScore = float.MinValue;
 
+            if (_showDebug) _debugEntries.Clear();
+
             foreach (var action in _actions)
             {
-                if (!action.IsValid(Board)) continue;
-                float score = action.Score(Board);
-                if (score > topScore) { topScore = score; best = action; }
+                bool  valid = action.IsValid(Board);
+                float score = valid ? action.Score(Board) : float.NegativeInfinity;
+
+                if (_showDebug)
+                    _debugEntries.Add(new DebugEntry { Name = action.Name, Score = score, Valid = valid });
+
+                if (valid && score > topScore) { topScore = score; best = action; }
             }
 
+            if (_showDebug) _currentActionName = best?.Name ?? "None";
             best?.Execute(this, Board);
         }
 
@@ -197,6 +222,78 @@ namespace Source.Beetles
                 sep += (transform.position - _sepBuffer[i].transform.position).normalized;
             }
             return Vector3.ProjectOnPlane(sep, SurfaceNormal);
+        }
+
+        // --- Debug overlay ---
+
+        private void OnGUI()
+        {
+            if (!_showDebug || Camera.main == null || _debugEntries.Count == 0) return;
+
+            InitStyles();
+
+            // Project the label anchor to screen space.
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position + transform.up * _debugHeight);
+            if (screenPos.z < 0f) return; // behind camera
+
+            const float lineH   = 16f;
+            const float padding = 4f;
+            float       boxH    = (_debugEntries.Count + 2) * lineH + padding * 2f;
+
+            // GUI origin is top-left; screen origin is bottom-left.
+            float x = screenPos.x - _boxWidth * 0.5f;
+            float y = Screen.height - screenPos.y;
+
+            GUI.Box(new Rect(x, y, _boxWidth, boxH), GUIContent.none);
+
+            float cx = x + padding;
+            float cy = y + padding;
+            float cw = _boxWidth - padding * 2f;
+
+            GUI.Label(new Rect(cx, cy, cw, lineH),
+                      $"{GetType().Name}  |  {Hunger.Value:P0} hungry", _headerStyle);
+            cy += lineH;
+
+            GUI.Label(new Rect(cx, cy, cw, lineH), new string('─', 24), _normalStyle);
+            cy += lineH;
+
+            foreach (var entry in _debugEntries)
+            {
+                bool   isCurrent = entry.Name == _currentActionName;
+                string prefix    = isCurrent ? "► " : "  ";
+                string scoreStr  = entry.Valid ? entry.Score.ToString("F2") : "—";
+                string line      = $"{prefix}{entry.Name,-16}{scoreStr,6}";
+
+                GUI.Label(new Rect(cx, cy, cw, lineH), line,
+                          isCurrent ? _activeStyle : (entry.Valid ? _normalStyle : _invalidStyle));
+                cy += lineH;
+            }
+        }
+
+        // Lazily initialise styles inside OnGUI where GUI.skin is available.
+        private static void InitStyles()
+        {
+            if (_headerStyle != null) return;
+
+            _headerStyle              = new GUIStyle(GUI.skin.label);
+            _headerStyle.fontStyle    = FontStyle.Bold;
+            _headerStyle.fontSize     = 11;
+
+            _activeStyle              = new GUIStyle(GUI.skin.label);
+            _activeStyle.fontStyle    = FontStyle.Bold;
+            _activeStyle.fontSize     = 10;
+            var activeState           = _activeStyle.normal;
+            activeState.textColor     = Color.yellow;
+            _activeStyle.normal       = activeState;
+
+            _normalStyle              = new GUIStyle(GUI.skin.label);
+            _normalStyle.fontSize     = 10;
+
+            _invalidStyle             = new GUIStyle(GUI.skin.label);
+            _invalidStyle.fontSize    = 10;
+            var invalidState          = _invalidStyle.normal;
+            invalidState.textColor    = new Color(0.5f, 0.5f, 0.5f);
+            _invalidStyle.normal      = invalidState;
         }
 
         // --- Stuck detection ---

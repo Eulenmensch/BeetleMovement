@@ -13,5 +13,8 @@ namespace Source.Beetles.Actions
 
         // Perform the action — usually sets a path destination or modifies a stat.
         public abstract void Execute(BeetleBrain brain, BeetleBlackboard board);
+
+        // Short display name used by debug overlays. Strips "Action"/"BeetleAction" suffix.
+        public virtual string Name => GetType().Name.Replace("BeetleAction", "").Replace("Action", "");
     }
 }

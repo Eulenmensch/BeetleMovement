@@ -165,6 +165,9 @@ MonoBehaviour:
   stuckCheckInterval: 2
   stuckThreshold: 0.1
   _updateInterval: 0.2
+  _showDebug: 1
+  _debugHeight: 1.5
+  _boxWidth: 185
 --- !u!114 &3758723272603554900
 MonoBehaviour:
   m_ObjectHideFlags: 0
