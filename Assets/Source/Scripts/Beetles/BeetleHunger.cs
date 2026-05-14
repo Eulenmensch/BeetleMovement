@@ -22,5 +22,8 @@ namespace Source.Beetles
 
         // Pass the duration over which eating occurred (usually the AI tick interval).
         public void Eat(float duration) => Value = Mathf.Clamp01(Value - eatRate * duration);
+
+        // Reduce hunger by an explicit amount (used when recovery rate is defined externally).
+        public void Restore(float amount) => Value = Mathf.Clamp01(Value - amount);
     }
 }

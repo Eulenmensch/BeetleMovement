@@ -12,7 +12,8 @@ namespace Source.Beetles
     //   - Staggered utility-AI ticks so not all beetles update on the same frame
     //
     // Subclasses only need to implement IsPredator and CreateActions().
-    [RequireComponent(typeof(BeetleHunger), typeof(BeetleSensor), typeof(Seeker))]
+    [RequireComponent(typeof(BeetleHunger), typeof(BeetleHealth), typeof(BeetleSensor))]
+    [RequireComponent(typeof(Seeker))]
     public abstract class BeetleBrain : MonoBehaviour
     {
         [Header("Surface")]
@@ -51,6 +52,7 @@ namespace Source.Beetles
         public float   UpdateInterval  => _updateInterval;
         public BeetleBlackboard Board  { get; private set; }
         public BeetleHunger     Hunger { get; private set; }
+        public BeetleHealth     Health { get; private set; }
 
         private BeetleSensor       _sensor;
         private Seeker             _seeker;
@@ -87,6 +89,7 @@ namespace Source.Beetles
         {
             Board   = new BeetleBlackboard();
             Hunger  = GetComponent<BeetleHunger>();
+            Health  = GetComponent<BeetleHealth>();
             _sensor = GetComponent<BeetleSensor>();
             _seeker = GetComponent<Seeker>();
 
@@ -140,6 +143,7 @@ namespace Source.Beetles
         {
             _sensor.Sense();
             Board.Set(BK.Hunger, Hunger.Value);
+            Board.Set(BK.Health, Health.Fraction);
 
             BeetleAction best     = null;
             float        topScore = float.MinValue;
@@ -296,7 +300,7 @@ namespace Source.Beetles
             float cw = _boxWidth - padding * 2f;
 
             GUI.Label(new Rect(cx, cy, cw, lineH),
-                      $"{GetType().Name}  |  {Hunger.Value:P0} hungry", _headerStyle);
+                      $"{GetType().Name}  |  {Hunger.Value:P0} hungry  |  {Health.Fraction:P0} HP", _headerStyle);
             cy += lineH;
 
             GUI.Label(new Rect(cx, cy, cw, lineH), new string('─', 24), _normalStyle);

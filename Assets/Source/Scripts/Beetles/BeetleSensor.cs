@@ -9,6 +9,7 @@ namespace Source.Beetles
     {
         [SerializeField] private float      senseRadius   = 8f;
         [SerializeField] private float      eatRadius     = 0.8f;  // distance to count as "at food source"
+        [SerializeField] private float      preyEatRadius = 1.5f;  // must exceed BeetleBrain.separationRadius
         [SerializeField] private LayerMask  foodLayer      = ~0;
         [SerializeField] private LayerMask  beetleLayer    = ~0;
         [SerializeField] private LayerMask  pheromoneLayer = ~0;
@@ -85,7 +86,12 @@ namespace Source.Beetles
                 if (d < nearestDist) { nearestDist = d; nearest = _buffer[i].transform; }
             }
 
-            _board.Set(BK.NearestPrey, nearest);
+            float            dist       = nearest != null ? Mathf.Sqrt(nearestDist) : float.MaxValue;
+            BeetleHealth     preyHealth = nearest != null ? nearest.GetComponentInParent<BeetleHealth>() : null;
+
+            _board.Set(BK.NearestPrey,       nearest);
+            _board.Set(BK.AtPrey,            nearest != null && dist < preyEatRadius);
+            _board.Set(BK.NearestPreyHealth, preyHealth);
         }
 
         private void SensePheromones()

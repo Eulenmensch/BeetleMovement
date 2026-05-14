@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 6449318226079514045}
   - component: {fileID: 6667312801301734444}
   - component: {fileID: 6370470442133010504}
+  - component: {fileID: 2386716294567650106}
   m_Layer: 9
   m_Name: Predator Beetle
   m_TagString: Predator
@@ -156,12 +157,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Source.Beetles.BeetleSensor
   senseRadius: 15
   eatRadius: 1
+  preyEatRadius: 1.5
   foodLayer:
     serializedVersion: 2
     m_Bits: 256
   beetleLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 2048
   pheromoneLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -263,6 +265,8 @@ MonoBehaviour:
   _showDebug: 0
   _debugHeight: 1.5
   _boxWidth: 185
+  damagePerSecond: 3
+  hungerRecoveryPerSecond: 0.2
 --- !u!114 &6667312801301734444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,3 +302,16 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.3
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2386716294567650106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6080246000725229747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42c9008b8d724c7478fe4fcce2045f34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Source.Beetles.BeetleHealth
+  maxHealth: 100

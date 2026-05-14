@@ -127,9 +127,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 629647907117921812, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507439973566493752, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
+      objectReference: {fileID: 0}
     - target: {fileID: 6080246000725229747, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
       propertyPath: m_Name
       value: Predator Beetle (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080246000725229747, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449318226079514045, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
+      propertyPath: _showDebug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449318226079514045, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449318226079514045, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
+      propertyPath: hungerRecoveryPerSecond
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 8442214672936840864, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
       propertyPath: m_LocalPosition.x
@@ -312,8 +336,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _boxWidth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: _showDebug
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _debugHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
       objectReference: {fileID: 0}
     - target: {fileID: 3033517756831521144, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: m_Name
@@ -367,6 +403,10 @@ PrefabInstance:
       propertyPath: pheromonePrefab
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5604780081342081069, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -380,6 +420,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _boxWidth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _showDebug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _debugHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
+      objectReference: {fileID: 0}
     - target: {fileID: 3033517756831521144, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: m_Name
       value: Cattle Beetle (7)
@@ -427,6 +483,10 @@ PrefabInstance:
     - target: {fileID: 3758723272603554900, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: pheromonePrefab
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604780081342081069, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -34886,13 +34946,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 629647907117921812, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507439973566493752, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
+      objectReference: {fileID: 0}
     - target: {fileID: 6080246000725229747, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
       propertyPath: m_Name
       value: Predator Beetle (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6080246000725229747, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 6449318226079514045, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
       propertyPath: _showDebug
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449318226079514045, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449318226079514045, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
+      propertyPath: hungerRecoveryPerSecond
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 8442214672936840864, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
       propertyPath: m_LocalPosition.x
@@ -34948,8 +35028,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _boxWidth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: _showDebug
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _debugHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
       objectReference: {fileID: 0}
     - target: {fileID: 3033517756831521144, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: m_Name
@@ -34998,6 +35090,10 @@ PrefabInstance:
     - target: {fileID: 3758723272603554900, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: pheromonePrefab
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604780081342081069, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -35339,8 +35435,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _boxWidth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: _showDebug
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _debugHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
       objectReference: {fileID: 0}
     - target: {fileID: 3033517756831521144, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: m_Name
@@ -35390,6 +35498,10 @@ PrefabInstance:
       propertyPath: pheromonePrefab
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5604780081342081069, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -35404,8 +35516,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _boxWidth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: _showDebug
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _debugHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
       objectReference: {fileID: 0}
     - target: {fileID: 3033517756831521144, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: m_Name
@@ -35454,6 +35578,10 @@ PrefabInstance:
     - target: {fileID: 3758723272603554900, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: pheromonePrefab
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604780081342081069, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -35779,8 +35907,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _boxWidth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: _showDebug
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _debugHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
       objectReference: {fileID: 0}
     - target: {fileID: 3033517756831521144, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: m_Name
@@ -35829,6 +35969,10 @@ PrefabInstance:
     - target: {fileID: 3758723272603554900, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: pheromonePrefab
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604780081342081069, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -36131,8 +36275,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _boxWidth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: _showDebug
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _debugHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
       objectReference: {fileID: 0}
     - target: {fileID: 3033517756831521144, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: m_Name
@@ -36181,6 +36337,10 @@ PrefabInstance:
     - target: {fileID: 3758723272603554900, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: pheromonePrefab
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604780081342081069, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -37226,8 +37386,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _boxWidth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: _showDebug
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _debugHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
       objectReference: {fileID: 0}
     - target: {fileID: 3033517756831521144, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: m_Name
@@ -37277,6 +37449,10 @@ PrefabInstance:
       propertyPath: pheromonePrefab
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5604780081342081069, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -37291,8 +37467,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _boxWidth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: _showDebug
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _debugHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
       objectReference: {fileID: 0}
     - target: {fileID: 3033517756831521144, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: m_Name
@@ -37341,6 +37529,10 @@ PrefabInstance:
     - target: {fileID: 3758723272603554900, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: pheromonePrefab
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604780081342081069, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -37542,8 +37734,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _boxWidth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: _showDebug
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _debugHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
       objectReference: {fileID: 0}
     - target: {fileID: 3033517756831521144, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: m_Name
@@ -37593,6 +37797,10 @@ PrefabInstance:
       propertyPath: pheromonePrefab
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5604780081342081069, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -37606,13 +37814,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 629647907117921812, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507439973566493752, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
+      objectReference: {fileID: 0}
     - target: {fileID: 6080246000725229747, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
       propertyPath: m_Name
       value: Predator Beetle
       objectReference: {fileID: 0}
+    - target: {fileID: 6080246000725229747, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 6449318226079514045, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
       propertyPath: _showDebug
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449318226079514045, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449318226079514045, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
+      propertyPath: hungerRecoveryPerSecond
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 8442214672936840864, guid: 458b4d856ae03d54da39c5645dc7c691, type: 3}
       propertyPath: m_LocalPosition.x
@@ -37668,8 +37896,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _boxWidth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: _showDebug
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: _debugHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415614663331102113, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
       objectReference: {fileID: 0}
     - target: {fileID: 3033517756831521144, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: m_Name
@@ -37718,6 +37958,10 @@ PrefabInstance:
     - target: {fileID: 3758723272603554900, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
       propertyPath: pheromonePrefab
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604780081342081069, guid: 681265c2815278d48a97bf3c4dca2795, type: 3}
+      propertyPath: beetleLayer.m_Bits
+      value: 2560
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
