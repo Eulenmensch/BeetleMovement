@@ -246,13 +246,17 @@ MonoBehaviour:
   surfaceLayers:
     serializedVersion: 2
     m_Bits: 64
-  moveSpeed: 2.5
+  moveSpeed: 4
   waypointReachDistance: 0.4
-  separationRadius: 1.2
-  separationWeight: 0.5
   beetleLayer:
     serializedVersion: 2
     m_Bits: 512
+  separationRadius: 3
+  separationWeight: 1
+  cohesionRadius: 4
+  cohesionWeight: 0
+  alignmentRadius: 0
+  alignmentWeight: 0
   stuckCheckInterval: 2
   stuckThreshold: 0.1
   _updateInterval: 0.2

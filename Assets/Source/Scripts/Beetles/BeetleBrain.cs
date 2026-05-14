@@ -24,9 +24,15 @@ namespace Source.Beetles
         [Header("Locomotion")]
         [SerializeField] private float     moveSpeed              = 3f;
         [SerializeField] private float     waypointReachDistance  = 0.4f;
-        [SerializeField] private float     separationRadius       = 1.2f;
-        [SerializeField] private float     separationWeight       = 0.5f;
         [SerializeField] private LayerMask beetleLayer;
+
+        [Header("Flocking")]
+        [SerializeField] private float separationRadius  = 1.2f;
+        [SerializeField] private float separationWeight  = 0.6f;
+        [SerializeField] private float cohesionRadius    = 4f;
+        [SerializeField] private float cohesionWeight    = 0.2f;
+        [SerializeField] private float alignmentRadius   = 3f;
+        [SerializeField] private float alignmentWeight   = 0.15f;
 
         [Header("Stuck Detection")]
         [SerializeField] private float stuckCheckInterval = 2f;
@@ -59,7 +65,7 @@ namespace Source.Beetles
         private float   _nextStuckCheck;
         private float   _nextAIUpdate;
 
-        private readonly Collider[] _sepBuffer = new Collider[16];
+        private readonly Collider[] _flockBuffer = new Collider[32];
 
         // --- Debug overlay state ---
 
@@ -86,8 +92,8 @@ namespace Source.Beetles
 
             _sensor.Init(Board, IsPredator);
 
-            // Random initial offset so beetles don't all tick on frame 0.
-            _nextAIUpdate = Time.time + Random.Range(0f, _updateInterval);
+            // Spread initial ticks across a full second so beetles don't cluster on frame 0.
+            _nextAIUpdate = Time.time + Random.Range(0f, 1f);
         }
 
         private void Start()
@@ -105,7 +111,7 @@ namespace Source.Beetles
 
             if (Time.time >= _nextAIUpdate)
             {
-                _nextAIUpdate = Time.time + _updateInterval;
+                _nextAIUpdate = Time.time + _updateInterval + Random.Range(-_updateInterval * 0.25f, _updateInterval * 0.25f);
                 TickAI();
             }
 
@@ -198,9 +204,9 @@ namespace Source.Beetles
                 return;
             }
 
-            // Project desired direction onto the surface plane, then blend in boid separation.
+            // Project desired direction onto the surface plane, then blend in flocking forces.
             Vector3 moveDir = Vector3.ProjectOnPlane(toTarget.normalized, SurfaceNormal);
-            moveDir += ComputeSeparation() * separationWeight;
+            moveDir += ComputeFlocking();
             moveDir  = Vector3.ProjectOnPlane(moveDir, SurfaceNormal).normalized;
 
             transform.position += moveDir * (moveSpeed * Time.deltaTime);
@@ -212,16 +218,55 @@ namespace Source.Beetles
             }
         }
 
-        private Vector3 ComputeSeparation()
+        private Vector3 ComputeFlocking()
         {
-            int     count = Physics.OverlapSphereNonAlloc(transform.position, separationRadius, _sepBuffer, beetleLayer);
-            Vector3 sep   = Vector3.zero;
+            float maxRadius = Mathf.Max(separationRadius, cohesionRadius, alignmentRadius);
+            int   count     = Physics.OverlapSphereNonAlloc(transform.position, maxRadius, _flockBuffer, beetleLayer);
+
+            Vector3 sep        = Vector3.zero;
+            Vector3 cohCenter  = Vector3.zero;
+            Vector3 alignDir   = Vector3.zero;
+            int     cohCount   = 0;
+            int     alignCount = 0;
+
             for (int i = 0; i < count; i++)
             {
-                if (_sepBuffer[i].gameObject == gameObject) continue;
-                sep += (transform.position - _sepBuffer[i].transform.position).normalized;
+                if (_flockBuffer[i].gameObject == gameObject) continue;
+
+                Vector3 toNeighbor = _flockBuffer[i].transform.position - transform.position;
+                float   dist       = toNeighbor.magnitude;
+
+                if (dist < separationRadius && dist > 0.001f)
+                    sep -= toNeighbor / (dist * dist); // inverse-square push away
+
+                if (dist < cohesionRadius)
+                {
+                    cohCenter += _flockBuffer[i].transform.position;
+                    cohCount++;
+                }
+
+                if (dist < alignmentRadius)
+                {
+                    alignDir += _flockBuffer[i].transform.forward;
+                    alignCount++;
+                }
             }
-            return Vector3.ProjectOnPlane(sep, SurfaceNormal);
+
+            Vector3 result = Vector3.zero;
+
+            if (sep.sqrMagnitude > 0.001f)
+                result += Vector3.ProjectOnPlane(sep.normalized, SurfaceNormal) * separationWeight;
+
+            if (cohCount > 0)
+            {
+                Vector3 toCohCenter = cohCenter / cohCount - transform.position;
+                result += Vector3.ProjectOnPlane(toCohCenter.normalized, SurfaceNormal) * cohesionWeight;
+            }
+
+            if (alignCount > 0)
+                result += Vector3.ProjectOnPlane(alignDir.normalized, SurfaceNormal) * alignmentWeight;
+
+            return result;
         }
 
         // --- Debug overlay ---
