@@ -5,15 +5,19 @@ namespace Source.Player
 {
     // Kinematic rigidbody controller. Reads the Move action from the new Input System and
     // moves the player along the surface plane reported by SurfaceAligner.
-    // Depenetration runs every physics step to prevent clipping into walls and geometry.
     //
-    // CapsuleCollider direction must be set to Y-Axis (default) so the capsule aligns with
-    // transform.up as the character rotates to match the surface normal.
+    // Owns all rotation: surface alignment and turn-to-face are computed together once per
+    // physics step and applied via MoveRotation, so nothing else writes rotation at a
+    // different rate and causes jitter.
+    //
+    // CapsuleCollider direction must be Y-Axis (default) so the capsule aligns with
+    // transform.up as the character tilts to match the surface normal.
     [RequireComponent(typeof(Rigidbody), typeof(SurfaceAligner), typeof(CapsuleCollider))]
     public class SurfaceMovementController : MonoBehaviour
     {
-        [SerializeField] private float               moveSpeed   = 5f;
-        [SerializeField] private float               turnSpeed   = 10f;
+        [SerializeField] private float                moveSpeed   = 5f;
+        [SerializeField] private float                turnSpeed   = 10f;
+        [SerializeField] private float                alignSpeed  = 8f;  // surface-normal alignment when idle
         [SerializeField] private InputActionReference moveAction;
 
         private Rigidbody       _rb;
@@ -36,39 +40,50 @@ namespace Source.Player
 
         private void FixedUpdate()
         {
-            Vector2 input      = moveAction.action.ReadValue<Vector2>();
-            Vector3 desiredPos = _rb.position;
+            Vector2 input  = moveAction.action.ReadValue<Vector2>();
+            Vector3 normal = _aligner.SurfaceNormal;
+
+            Vector3    desiredPos = _rb.position;
+            Quaternion desiredRot;
 
             if (input.sqrMagnitude > 0.001f)
             {
                 // Project camera axes onto the surface plane so WASD always feels grounded.
-                Vector3 normal   = _aligner.SurfaceNormal;
                 Vector3 camFwd   = Vector3.ProjectOnPlane(Camera.main.transform.forward, normal).normalized;
                 Vector3 camRight = Vector3.ProjectOnPlane(Camera.main.transform.right,   normal).normalized;
                 Vector3 moveDir  = (camFwd * input.y + camRight * input.x).normalized;
 
                 desiredPos += moveDir * (moveSpeed * Time.fixedDeltaTime);
 
-                if (moveDir.sqrMagnitude > 0.001f)
-                {
-                    Quaternion look = Quaternion.LookRotation(moveDir, normal);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, look, turnSpeed * Time.fixedDeltaTime);
-                }
+                // Turn toward movement direction, up = surface normal.
+                desiredRot = Quaternion.Slerp(_rb.rotation,
+                                              Quaternion.LookRotation(moveDir, normal),
+                                              turnSpeed * Time.fixedDeltaTime);
+            }
+            else
+            {
+                // When idle, re-align up to the surface normal while preserving forward direction.
+                Vector3 fwdOnSurface = Vector3.ProjectOnPlane(_rb.rotation * Vector3.forward, normal);
+                if (fwdOnSurface.sqrMagnitude < 0.001f)
+                    fwdOnSurface = Vector3.ProjectOnPlane(Vector3.forward, normal);
+
+                desiredRot = Quaternion.Slerp(_rb.rotation,
+                                              Quaternion.LookRotation(fwdOnSurface.normalized, normal),
+                                              alignSpeed * Time.fixedDeltaTime);
             }
 
-            _rb.MovePosition(Depenetrate(desiredPos));
+            _rb.MovePosition(Depenetrate(desiredPos, desiredRot));
+            _rb.MoveRotation(desiredRot);
         }
 
-        // Resolves any overlap between the capsule at desiredPos and nearby colliders,
-        // returning a corrected position that avoids intersection.
-        private Vector3 Depenetrate(Vector3 desiredPos)
+        private Vector3 Depenetrate(Vector3 desiredPos, Quaternion desiredRot)
         {
-            // Capsule axis is transform.up (requires CapsuleCollider direction = Y-Axis).
-            // Half-length is how far each sphere center is from the capsule center.
+            // Capsule axis is local Y rotated to world space (requires CapsuleCollider direction = Y-Axis).
             float   halfLength    = Mathf.Max(0f, _capsule.height * 0.5f - _capsule.radius);
-            Vector3 capsuleCenter = desiredPos + transform.rotation * _capsule.center;
-            Vector3 p1            = capsuleCenter - transform.up * halfLength;
-            Vector3 p2            = capsuleCenter + transform.up * halfLength;
+            Vector3 capsuleUp     = desiredRot * Vector3.up;
+            Vector3 capsuleCenter = desiredPos + desiredRot * _capsule.center;
+            Vector3 p1            = capsuleCenter - capsuleUp * halfLength;
+            Vector3 p2            = capsuleCenter + capsuleUp * halfLength;
 
             int count = Physics.OverlapCapsuleNonAlloc(p1, p2, _capsule.radius,
                                                        _overlapBuffer, ~0,
@@ -79,8 +94,8 @@ namespace Source.Player
                 if (_overlapBuffer[i] == _capsule) continue;
 
                 if (Physics.ComputePenetration(
-                        _capsule,               desiredPos,                  transform.rotation,
-                        _overlapBuffer[i],      _overlapBuffer[i].transform.position,
+                        _capsule,          desiredPos,                           desiredRot,
+                        _overlapBuffer[i], _overlapBuffer[i].transform.position,
                         _overlapBuffer[i].transform.rotation,
                         out Vector3 dir, out float dist))
                 {
